@@ -22,10 +22,10 @@ A lightweight SQLite library management system with separated database logic and
 source ./venv/bin/activate
 ```
 
-2. Install dependencies if needed:
+2. Install dependencies using `requirements.txt`:
 
 ```bash
-pip install sqlalchemy
+pip install -r requirements.txt
 ```
 
 3. The app uses `sqlite:///library_management_system.db` by default, and `cli.py` will create the database tables automatically.
