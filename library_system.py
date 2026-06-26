@@ -152,32 +152,43 @@ def create_sample_data():
         a1 = Authors(name="J.K. Rowling", bio="Author of the Harry Potter series")
         a2 = Authors(name="J.R.R. Tolkien", bio="Author of The Lord of the Rings")
         a3 = Authors(name="Isaac Asimov", bio="Science fiction author")
+        a4 = Authors(name="F. Scott Fitzgerald", bio="Author of The Great Gatsby and The Side of Paradise")
 
         # Books
         b1 = Books(title="Harry Potter and the Philosopher's Stone", isbn="9780747532699", year_published="1997", available_copies=3)
         b2 = Books(title="The Hobbit", isbn="9780261102217", year_published="1937", available_copies=2)
         b3 = Books(title="Foundation", isbn="9780553293357", year_published="1951", available_copies=1)
+        b4 = Books(title="The Great Gatsby", isbn="9783485768445", year_published="1925", available_copies=3)
+        b5 = Books(title="The Side of Paradise", isbn="9780174927312", year_published="1920", available_copies=2)
 
         # link books and authors (many-to-many)
         b1.authors.append(a1)
         b2.authors.append(a2)
         b3.authors.append(a3)
+        b4.authors.append(a4)
+        b5.authors.append(a4)
 
         # Members
         m1 = Members(name="Alice Smith", email="alice@example.com", membership_date="2024-01-15")
         m2 = Members(name="Bob Jones", email="bob@example.com", membership_date="2025-03-22")
+        m3 = Members(name="Bill Packard", email="bill@example.com", membership_date="2023-03-10")
+        m4 = Members(name="Brian Williams", email="brian@example.com", membership_date="2025-05-29")
 
-        session.add_all([a1, a2, a3, b1, b2, b3, m1, m2])
+        session.add_all([a1, a2, a3, a4, b1, b2, b3,b4, b5, m1, m2, m3, m4])
         session.commit()
 
         # Borrowings (one active, one returned)
         now = datetime.datetime.now()
         borrow1 = Borrowing(book=b1, member=m1, checkout_date=now - datetime.timedelta(days=10), return_date=None)
         borrow2 = Borrowing(book=b2, member=m2, checkout_date=now - datetime.timedelta(days=20), return_date=now - datetime.timedelta(days=5))
+        borrow3 = Borrowing(book=b3, member=m3, checkout_date=now - datetime.timedelta(days=20), return_date=now - datetime.timedelta(days=5))
+        borrow4 = Borrowing(book=b4, member=m1, checkout_date=now - datetime.timedelta(days=20), return_date=now - datetime.timedelta(days=5))
+        borrow5 = Borrowing(book=b5, member=m4, checkout_date=now - datetime.timedelta(days=20), return_date=now - datetime.timedelta(days=5))
+        borrow6 = Borrowing(book=b5, member=m4, checkout_date=now - datetime.timedelta(days=20), return_date=now - datetime.timedelta(days=5))
 
-        session.add_all([borrow1, borrow2])
+        session.add_all([borrow1, borrow2, borrow3, borrow4, borrow5, borrow6])
         session.commit()
-        print("Sample data created: 3 authors, 3 books, 2 members, 2 borrowings")
+        print("Sample data created: 4 authors, 5 books, 4 members, 6 borrowings")
 
 
 def init_db():
